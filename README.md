@@ -142,7 +142,26 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
                 case false: /* 暫停 */ break;
             }
         },
+        //是否為暫停
+        isPaused: function(){ return Boolean; },
+    });
+```
+
+```js
+var jPlyerCtrl_timeLine = new jPlyerTimeLine({
         //改變畫面函數
+        /* Object jInf
+            - 標籤元素： HElem_floatShow, HElem_buffer, HElem_play, HElem_progress。
+            - state： 當有滑鼠事件時顯示當前狀態，其值有： hover / drag。
+            - evtType： 當有滑鼠事件時顯示事件名稱，其值有：
+                mouseenter / mousedown / mousemove / mouseup / mouseleave
+            - isLive： 是否為直播。
+            - time： 時間數值。
+            - timeFromEnd： 當直播時，此值為時間的倒數數值。
+            - timeArr： 時間文字化數列。（直播時為倒數時間。）
+            - timeStr： 時間文字化，格式 hh:mm:ss
+            - placePercent： 撥放時間在時間軸上的位置百分比。
+        -*/
         setCurrentPlayShow: function( jInf ){...},
     });
 ```

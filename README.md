@@ -11,6 +11,7 @@
 
 ## 簡介
 
+
 撥放器時間軸模組。
 
 
@@ -19,9 +20,9 @@
 
 
   * lib
-    * [影片時間軸](lib/jPlyerTimeLine.js)
     * [JzTree 補充包](lib/jzTree_additional.js)
-  * README.md
+    * [jPlyerTimeLine.js](lib/jPlyerTimeLine.js)
+  * [README.md](README.md)
 
 
 
@@ -115,7 +116,7 @@ CSS Style：
 
 標籤物件：
 
-```
+```js
 var HElem_progress = document.querySelector('#LxPlyerTimeLine'),
     jPlyerCtrl_timeLine = new jPlyerTimeLine({
         //時間軸外框
@@ -132,7 +133,7 @@ var HElem_progress = document.querySelector('#LxPlyerTimeLine'),
 
 必要影片資訊函數：
 
-```
+```js
 var jPlyerCtrl_timeLine = new jPlyerTimeLine({
         //撥放暫停函數
         play: function( ChoA ){
@@ -146,7 +147,7 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
     });
 ```
 
-```
+```js
 var jPlyerCtrl_timeLine = new jPlyerTimeLine({
         /* VOD */
         //>> 取得 緩衝百分比函數
@@ -162,9 +163,10 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
                     return Number;
             }
         },
+    });
 ```
 
-```
+```js
 var jPlyerCtrl_timeLine = new jPlyerTimeLine({
         /* Live： 若 isLivePlayback = false 時可略過 */
         //>> 取得 總時間函數
@@ -194,7 +196,7 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
 
 可選值：
 
-```
+```js
 var jPlyerCtrl_timeLine = new jPlyerTimeLine({
         //影片是否準備完成
         isVideoReady: Boolean || true,
@@ -216,7 +218,7 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
 
 更改影片準備狀態：
 
-```
+```js
 jPlyerCtrl_timeLine.isVideoReady = Boolean;
 jPlyerCtrl_timeLine.setIsVideoReady( Boolean );
 ```
@@ -224,7 +226,7 @@ jPlyerCtrl_timeLine.setIsVideoReady( Boolean );
 
 更改影片直播狀態：
 
-```
+```js
 jPlyerCtrl_timeLine.isLive = Boolean;
 jPlyerCtrl_timeLine.setIsLive( Boolean );
 ```
@@ -232,14 +234,14 @@ jPlyerCtrl_timeLine.setIsLive( Boolean );
 
 當串流緩衝時間改變時：
 
-```
+```js
 jPlyerCtrl_timeLine.streamBufferChange();
 ```
 
 
 當時間改變時：
 
-```
+```js
 jPlyerCtrl_timeLine.timeChange();
 jPlyerCtrl_timeLine.timeChange( jCurrentTime );
 ```

@@ -199,9 +199,7 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
             return Num;
         },
         //>> 設定或取得 撥放時間函數
-        //>> >> NumTime： 使用 liveCurrent() 取得。
-        //>> >> NumTimeFromEnd： 計算 liveDuration('end') - liveCurrent() 所得。
-        liveCurrent: function( NumTime, NumTimeFromEnd ){
+        liveCurrent: function( NumTime ){
             switch( typeof NumTime ){
                 case 'number': /* 設定撥放時間 */ break;
                 default:

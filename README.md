@@ -152,9 +152,9 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
         //改變畫面函數
         /* Object jInf
             - 標籤元素： HElem_floatShow, HElem_buffer, HElem_play, HElem_progress。
-            - state： 當有滑鼠事件時顯示當前狀態，其值有： hover / drag。
-            - evtType： 當有滑鼠事件時顯示事件名稱，其值有：
-                mouseenter / mousedown / mousemove / mouseup / mouseleave
+            - state： 執行的狀態，其值有： start / move / end。
+            - type： 執行的類型，其值有： hover / drag / timeUpdate。
+            - typeState： 執行類型的細項狀態，其值有： start / move / end。
             - isLive： 是否為直播。
             - time： 時間數值。
             - timeFromEnd： 當直播時，此值為時間的倒數數值。

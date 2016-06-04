@@ -33,16 +33,16 @@
 
 
 
-### 基本 HTML （建議）
+### 基本 HTML
 
 
 HTML：
 
 ```html
-<div id="LxPlyerTimeLine">
-  <div class="LxPlyerTimeLine_floatShow">00:00</div>
-  <div class="LxPlyerTimeLine_buffer"></div>
-  <div class="LxPlyerTimeLine_play"></div>
+<div id="TxPlyerTimeLine_1" class="TxPlyerTimeLine">
+  <div class="TxPlyerTimeLine_floatShow">00:00</div>
+  <div class="TxPlyerTimeLine_buffer"></div>
+  <div class="TxPlyerTimeLine_play"></div>
 </div>
 ```
 
@@ -50,13 +50,13 @@ HTML：
 CSS Style：
 
 ```css
-#LxPlyerTimeLine {
+.TxPlyerTimeLine {
   height: 6px;
   margin: 0 32px;
   position: relative;
   background-color: rgba(255, 255, 255, 0.3);
 }
-#LxPlyerTimeLine .LxPlyerTimeLine_floatShow {
+.TxPlyerTimeLine .TxPlyerTimeLine_floatShow {
   width: 64px;
   height: 16px;
   margin-left: -32px;
@@ -68,28 +68,28 @@ CSS Style：
   line-height: 16px;
   text-align: center;
 }
-#LxPlyerTimeLine.esFloat .LxPlyerTimeLine_floatShow,
-#LxPlyerTimeLine.esDrag .LxPlyerTimeLine_floatShow {
+.TxPlyerTimeLine.esFloat .TxPlyerTimeLine_floatShow,
+.TxPlyerTimeLine.esDrag .TxPlyerTimeLine_floatShow {
   display: block;
 }
-#LxPlyerTimeLine .LxPlyerTimeLine_buffer {
+.TxPlyerTimeLine .TxPlyerTimeLine_buffer {
   width: 0;
   position: absolute;
   top: 0;
   bottom: 0;
   background-color: rgba(255, 255, 255, 0.3);
 }
-#LxPlyerTimeLine.esLive .LxPlyerTimeLine_buffer {
+.TxPlyerTimeLine.esLive .TxPlyerTimeLine_buffer {
   width: 0 !important;
 }
-#LxPlyerTimeLine .LxPlyerTimeLine_play {
+.TxPlyerTimeLine .TxPlyerTimeLine_play {
   width: 0;
   position: absolute;
   top: 0;
   bottom: 0;
   background-color: #f12b24;
 }
-#LxPlyerTimeLine.esLive .LxPlyerTimeLine_buffer {
+.TxPlyerTimeLine.esLive .TxPlyerTimeLine_play {
   width: 100%;
 }
 ```
@@ -100,9 +100,10 @@ CSS Style：
 
 
 ```html
-<div id="LxPlyerTimeLine" class="esEvtState"></div>
+<div id="TxPlyerTimeLine_1" class="TxPlyerTimeLine esEvtState"></div>
 ```
 
+esEvtState：
   - esNoReady： 未完成準備
   - esLive： 直播
   - 執行中：
@@ -117,16 +118,9 @@ CSS Style：
 標籤物件：
 
 ```js
-var HElem_progress = document.querySelector('#LxPlyerTimeLine'),
-    jPlyerCtrl_timeLine = new jPlyerTimeLine({
+var jPlyerCtrl_timeLine = new jPlyerTimeLine({
         //時間軸外框
-        HElem_progress: HElem_progress,
-        //顯示框
-        HElem_floatShow: HElem_progress.querySelector('.LxPlyerTimeLine_floatShow'),
-        //緩衝條
-        HElem_buffer: HElem_progress.querySelector('.LxPlyerTimeLine_buffer'),
-        //撥放條
-        HElem_play: HElem_progress.querySelector('.LxPlyerTimeLine_play'),
+        HElemMain: document.querySelector('#TxPlyerTimeLine_1'),
     });
 ```
 
@@ -151,7 +145,10 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
 var jPlyerCtrl_timeLine = new jPlyerTimeLine({
         //改變畫面函數
         /* Object jInf
-            - 標籤元素： HElem_floatShow, HElem_buffer, HElem_play, HElem_progress。
+            - HElemMain： 時間軸外框標籤元素。
+            - HElem_floatShow： 顯示框標籤元素。
+            - HElem_buffer： 緩衝條標籤元素。
+            - HElem_play： 撥放條標籤元素。
             - state： 執行的狀態，其值有： start / move / end。
             - type： 執行的類型，其值有： hover / drag / timeUpdate。
             - typeState： 執行類型的細項狀態，其值有： start / move / end。

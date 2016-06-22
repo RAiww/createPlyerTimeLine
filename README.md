@@ -2,7 +2,7 @@
 =======
 
 
-> 文件： 影片時間軸 jPlyerTimeLine<br />
+> 文件： 影片時間軸 createPlyerTimeLine<br />
 > 作者： RAiww <ra@iww.twbbs.org> (http://ra.iww.twbbs.org/)<br />
 > 版本： v1.0.0<br />
 > 授權： MIT @license: [ra.iww.twbbs.org/ffish/MIT_License](http://ra.iww.twbbs.org/ffish/MIT_License)
@@ -21,7 +21,7 @@
 
   * lib
     * [JzTree 補充包](lib/jzTree_additional.js)
-    * [jPlyerTimeLine.js](lib/jPlyerTimeLine.js)
+    * [createPlyerTimeLine.js](lib/createPlyerTimeLine.js)
   * [README.md](README.md)
 
 
@@ -112,13 +112,13 @@ esEvtState：
 
 
 
-### new jPlyerTimeLine 參數
+### new createPlyerTimeLine 參數
 
 
 標籤物件：
 
 ```js
-var jPlyerCtrl_timeLine = new jPlyerTimeLine({
+var jPlyerCtrl_timeLine = new createPlyerTimeLine({
         //時間軸外框
         HElemMain: document.querySelector('#TxPlyerTimeLine_1'),
     });
@@ -128,7 +128,7 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
 必要影片資訊函數：
 
 ```js
-var jPlyerCtrl_timeLine = new jPlyerTimeLine({
+var jPlyerCtrl_timeLine = new createPlyerTimeLine({
         //撥放暫停函數
         play: function( ChoA ){
             switch( ChoA ){
@@ -142,7 +142,7 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
 ```
 
 ```js
-var jPlyerCtrl_timeLine = new jPlyerTimeLine({
+var jPlyerCtrl_timeLine = new createPlyerTimeLine({
         //改變畫面函數
         /* Object jInf
             - HElemMain： 時間軸外框標籤元素。
@@ -164,7 +164,7 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
 ```
 
 ```js
-var jPlyerCtrl_timeLine = new jPlyerTimeLine({
+var jPlyerCtrl_timeLine = new createPlyerTimeLine({
         /* VOD */
         //>> 取得 緩衝百分比函數
         vodBuffer: function(){ ... return Number; },
@@ -183,7 +183,7 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
 ```
 
 ```js
-var jPlyerCtrl_timeLine = new jPlyerTimeLine({
+var jPlyerCtrl_timeLine = new createPlyerTimeLine({
         /* Live： 若 isLivePlayback = false 時可略過 */
         //>> 取得 總時間函數
         liveDuration: function( jTypeName ){
@@ -211,7 +211,7 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
 可選值：
 
 ```js
-var jPlyerCtrl_timeLine = new jPlyerTimeLine({
+var jPlyerCtrl_timeLine = new createPlyerTimeLine({
         //影片是否準備完成
         isVideoReady: Boolean || true,
         //是否為直播
@@ -227,7 +227,7 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
 
 
 
-### new jPlyerTimeLine 物件
+### new createPlyerTimeLine 物件
 
 
 更改影片準備狀態：

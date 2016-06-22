@@ -2,7 +2,7 @@
 =======
 
 
-> 文件： 影片時間軸 jPlyerTimeLine<br />
+> 文件： 影片時間軸 createPlyerTimeLine<br />
 > 作者： RAiww <ra@iww.twbbs.org> (http://ra.iww.twbbs.org/)<br />
 > 版本： v1.0.0<br />
 > 授權： MIT @license: [ra.iww.twbbs.org/ffish/MIT_License](http://ra.iww.twbbs.org/ffish/MIT_License)
@@ -10,6 +10,7 @@
 
 
 ## 簡介
+
 
 撥放器時間軸模組。
 
@@ -19,9 +20,9 @@
 
 
   * lib
-    * [影片時間軸](lib/jPlyerTimeLine.js)
     * [JzTree 補充包](lib/jzTree_additional.js)
-  * README.md
+    * [createPlyerTimeLine.js](lib/createPlyerTimeLine.js)
+  * [README.md](README.md)
 
 
 
@@ -32,16 +33,16 @@
 
 
 
-### 基本 HTML （建議）
+### 基本 HTML
 
 
 HTML：
 
 ```html
-<div id="LxPlyerTimeLine">
-  <div class="LxPlyerTimeLine_floatShow">00:00</div>
-  <div class="LxPlyerTimeLine_buffer"></div>
-  <div class="LxPlyerTimeLine_play"></div>
+<div id="TxPlyerTimeLine_1" class="TxPlyerTimeLine">
+  <div class="TxPlyerTimeLine_floatShow">00:00</div>
+  <div class="TxPlyerTimeLine_buffer"></div>
+  <div class="TxPlyerTimeLine_play"></div>
 </div>
 ```
 
@@ -49,13 +50,13 @@ HTML：
 CSS Style：
 
 ```css
-#LxPlyerTimeLine {
+.TxPlyerTimeLine {
   height: 6px;
   margin: 0 32px;
   position: relative;
   background-color: rgba(255, 255, 255, 0.3);
 }
-#LxPlyerTimeLine .LxPlyerTimeLine_floatShow {
+.TxPlyerTimeLine .TxPlyerTimeLine_floatShow {
   width: 64px;
   height: 16px;
   margin-left: -32px;
@@ -67,28 +68,28 @@ CSS Style：
   line-height: 16px;
   text-align: center;
 }
-#LxPlyerTimeLine.esFloat .LxPlyerTimeLine_floatShow,
-#LxPlyerTimeLine.esDrag .LxPlyerTimeLine_floatShow {
+.TxPlyerTimeLine.esFloat .TxPlyerTimeLine_floatShow,
+.TxPlyerTimeLine.esDrag .TxPlyerTimeLine_floatShow {
   display: block;
 }
-#LxPlyerTimeLine .LxPlyerTimeLine_buffer {
+.TxPlyerTimeLine .TxPlyerTimeLine_buffer {
   width: 0;
   position: absolute;
   top: 0;
   bottom: 0;
   background-color: rgba(255, 255, 255, 0.3);
 }
-#LxPlyerTimeLine.esLive .LxPlyerTimeLine_buffer {
+.TxPlyerTimeLine.esLive .TxPlyerTimeLine_buffer {
   width: 0 !important;
 }
-#LxPlyerTimeLine .LxPlyerTimeLine_play {
+.TxPlyerTimeLine .TxPlyerTimeLine_play {
   width: 0;
   position: absolute;
   top: 0;
   bottom: 0;
   background-color: #f12b24;
 }
-#LxPlyerTimeLine.esLive .LxPlyerTimeLine_buffer {
+.TxPlyerTimeLine.esLive .TxPlyerTimeLine_play {
   width: 100%;
 }
 ```
@@ -99,9 +100,10 @@ CSS Style：
 
 
 ```html
-<div id="LxPlyerTimeLine" class="esEvtState"></div>
+<div id="TxPlyerTimeLine_1" class="TxPlyerTimeLine esEvtState"></div>
 ```
 
+esEvtState：
   - esNoReady： 未完成準備
   - esLive： 直播
   - 執行中：
@@ -110,30 +112,23 @@ CSS Style：
 
 
 
-### new jPlyerTimeLine 參數
+### new createPlyerTimeLine 參數
 
 
 標籤物件：
 
-```
-var HElem_progress = document.querySelector('#LxPlyerTimeLine'),
-    jPlyerCtrl_timeLine = new jPlyerTimeLine({
+```js
+var jPlyerCtrl_timeLine = new createPlyerTimeLine({
         //時間軸外框
-        HElem_progress: HElem_progress,
-        //顯示框
-        HElem_floatShow: HElem_progress.querySelector('.LxPlyerTimeLine_floatShow'),
-        //緩衝條
-        HElem_buffer: HElem_progress.querySelector('.LxPlyerTimeLine_buffer'),
-        //撥放條
-        HElem_play: HElem_progress.querySelector('.LxPlyerTimeLine_play'),
+        HElemMain: document.querySelector('#TxPlyerTimeLine_1'),
     });
 ```
 
 
 必要影片資訊函數：
 
-```
-var jPlyerCtrl_timeLine = new jPlyerTimeLine({
+```js
+var jPlyerCtrl_timeLine = new createPlyerTimeLine({
         //撥放暫停函數
         play: function( ChoA ){
             switch( ChoA ){
@@ -141,13 +136,35 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
                 case false: /* 暫停 */ break;
             }
         },
+        //是否為暫停
+        isPaused: function(){ return Boolean; },
+    });
+```
+
+```js
+var jPlyerCtrl_timeLine = new createPlyerTimeLine({
         //改變畫面函數
+        /* Object jInf
+            - HElemMain： 時間軸外框標籤元素。
+            - HElem_floatShow： 顯示框標籤元素。
+            - HElem_buffer： 緩衝條標籤元素。
+            - HElem_play： 撥放條標籤元素。
+            - state： 執行的狀態，其值有： start / move / end。
+            - type： 執行的類型，其值有： hover / drag / timeUpdate。
+            - typeState： 執行類型的細項狀態，其值有： start / move / end。
+            - isLive： 是否為直播。
+            - time： 時間數值。
+            - timeFromEnd： 當直播時，此值為時間的倒數數值。
+            - timeArr： 時間文字化數列。（直播時為倒數時間。）
+            - timeStr： 時間文字化，格式 hh:mm:ss
+            - placePercent： 撥放時間在時間軸上的位置百分比。
+        -*/
         setCurrentPlayShow: function( jInf ){...},
     });
 ```
 
-```
-var jPlyerCtrl_timeLine = new jPlyerTimeLine({
+```js
+var jPlyerCtrl_timeLine = new createPlyerTimeLine({
         /* VOD */
         //>> 取得 緩衝百分比函數
         vodBuffer: function(){ ... return Number; },
@@ -162,10 +179,11 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
                     return Number;
             }
         },
+    });
 ```
 
-```
-var jPlyerCtrl_timeLine = new jPlyerTimeLine({
+```js
+var jPlyerCtrl_timeLine = new createPlyerTimeLine({
         /* Live： 若 isLivePlayback = false 時可略過 */
         //>> 取得 總時間函數
         liveDuration: function( jTypeName ){
@@ -178,9 +196,7 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
             return Num;
         },
         //>> 設定或取得 撥放時間函數
-        //>> >> NumTime： 使用 liveCurrent() 取得。
-        //>> >> NumTimeFromEnd： 計算 liveDuration('end') - liveCurrent() 所得。
-        liveCurrent: function( NumTime, NumTimeFromEnd ){
+        liveCurrent: function( NumTime ){
             switch( typeof NumTime ){
                 case 'number': /* 設定撥放時間 */ break;
                 default:
@@ -194,8 +210,8 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
 
 可選值：
 
-```
-var jPlyerCtrl_timeLine = new jPlyerTimeLine({
+```js
+var jPlyerCtrl_timeLine = new createPlyerTimeLine({
         //影片是否準備完成
         isVideoReady: Boolean || true,
         //是否為直播
@@ -211,12 +227,12 @@ var jPlyerCtrl_timeLine = new jPlyerTimeLine({
 
 
 
-### new jPlyerTimeLine 物件
+### new createPlyerTimeLine 物件
 
 
 更改影片準備狀態：
 
-```
+```js
 jPlyerCtrl_timeLine.isVideoReady = Boolean;
 jPlyerCtrl_timeLine.setIsVideoReady( Boolean );
 ```
@@ -224,7 +240,7 @@ jPlyerCtrl_timeLine.setIsVideoReady( Boolean );
 
 更改影片直播狀態：
 
-```
+```js
 jPlyerCtrl_timeLine.isLive = Boolean;
 jPlyerCtrl_timeLine.setIsLive( Boolean );
 ```
@@ -232,14 +248,14 @@ jPlyerCtrl_timeLine.setIsLive( Boolean );
 
 當串流緩衝時間改變時：
 
-```
+```js
 jPlyerCtrl_timeLine.streamBufferChange();
 ```
 
 
 當時間改變時：
 
-```
+```js
 jPlyerCtrl_timeLine.timeChange();
 jPlyerCtrl_timeLine.timeChange( jCurrentTime );
 ```

@@ -4,7 +4,7 @@
 
 > 文件： 影片時間軸 createPlyerTimeLine<br />
 > 作者： RAiww <ra@iww.twbbs.org> (http://ra.iww.twbbs.org/)<br />
-> 版本： v2.0.0<br />
+> 版本： v2.0.0in2.3<br />
 > 授權： MIT @license: [ra.iww.twbbs.org/ffish/MIT_License](http://ra.iww.twbbs.org/ffish/MIT_License)
 
 
